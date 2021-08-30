@@ -50,7 +50,7 @@ const BandSelector = ({ site, bands, step, setStep, setBands }) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={tw`mb-32`}>
       <View style={tw`px-4 py-2`}>
         <Text
           style={tw`text-red-600 font-extrabold my-4 text-center capitalize text-lg`}

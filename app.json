@@ -2,10 +2,10 @@
   "expo": {
     "name": "Slam Dunk Day Planner",
     "slug": "slam-dunk-planner",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "platforms":["ios","android"],
+    "platforms": ["ios", "android"],
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
@@ -14,17 +14,15 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier" : "com.mtmedia.slamdunkplanner",
-      "buildNumber":"1.0.0"
+      "bundleIdentifier": "com.mtmedia.slamdunkplanner",
+      "buildNumber": "1.0.1"
     },
     "android": {
-      "package":"com.mtmedia.slamdunkplanner",
-      "versionCode":1,
+      "package": "com.mtmedia.slamdunkplanner",
+      "versionCode": 2,
       "permissions": []
     },
     "web": {

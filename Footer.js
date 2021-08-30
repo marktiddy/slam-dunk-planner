@@ -8,7 +8,7 @@ const Footer = () => {
     Linking.openURL(url);
   };
   return (
-    <View style={tw`w-full bg-yellow-400 p-4 text-center`}>
+    <View style={tw`w-full bg-yellow-400 p-4 text-center absolute bottom-0`}>
       <Text style={tw`text-black font-extrabold text-base text-center`}>
         Found this helpful?
       </Text>

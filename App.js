@@ -23,7 +23,11 @@ const App = () => {
 
   useEffect(() => {
     const loadBandsList = () => {
-      fetch("https://marktiddy.co.uk/hosting/bandsList.json")
+      const headers = new Headers();
+      headers.append("pragma", "no-cache");
+      headers.append("cache-control", "no-cache");
+
+      fetch("https://marktiddy.co.uk/hosting/bandsList.json", { headers })
         .then((res) => res.json())
         .then((res) => {
           setBands(res);

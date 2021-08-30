@@ -44,7 +44,11 @@ const DayPlan = ({ bands, setBands, setSite, site, setStep, setLoading }) => {
     SecureStore.deleteItemAsync("slamDunkBands");
     SecureStore.deleteItemAsync("slamDunkSite");
 
-    fetch("https://marktiddy.co.uk/hosting/bandsList.json")
+    const headers = new Headers();
+    headers.append("pragma", "no-cache");
+    headers.append("cache-control", "no-cache");
+
+    fetch("https://marktiddy.co.uk/hosting/bandsList.json", { headers })
       .then((res) => res.json())
       .then((res) => {
         setBands(res);
@@ -56,7 +60,7 @@ const DayPlan = ({ bands, setBands, setSite, site, setStep, setLoading }) => {
   };
 
   return (
-    <ScrollView style={tw`px-4 text-center`}>
+    <ScrollView style={tw`px-4 text-center mb-40`}>
       <Text
         style={tw`text-red-600 font-extrabold my-2 text-center capitalize text-lg`}
       >
