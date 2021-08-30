@@ -8,7 +8,9 @@ const Footer = () => {
     Linking.openURL(url);
   };
   return (
-    <View style={tw`w-full bg-yellow-400 p-4 text-center absolute bottom-0`}>
+    <View
+      style={tw`bg-yellow-400 p-4 text-center rounded m-1 border-4 border-black`}
+    >
       <Text style={tw`text-black font-extrabold text-base text-center`}>
         Found this helpful?
       </Text>
@@ -16,7 +18,7 @@ const Footer = () => {
         This app was made as a hobby project. If you'd like to do one of the
         following I'd be super grateful
       </Text>
-      <View style={tw`flex flex-row justify-around items-center mt-2 pb-8`}>
+      <View style={tw`flex flex-row justify-around items-center mt-2`}>
         <TouchableOpacity
           style={tw`rounded bg-black text-yellow-400 w-5/12 p-2 font-extrabold uppercase text-sm`}
           onPress={() => handlePress("https://www.buymeacoffee.com/marktiddy")}

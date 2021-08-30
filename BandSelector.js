@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { bgcols } from "./cols";
 import tw from "tailwind-react-native-classnames";
+import Footer from "./Footer";
 
-const BandSelector = ({ site, bands, step, setStep, setBands }) => {
-  const [chosenBands, setChosenBands] = useState([]);
+const BandSelector = ({
+  site,
+  bands,
+  step,
+  setStep,
+  setBands,
+  chosenBands,
+  setChosenBands,
+}) => {
   const [error, setError] = useState(false);
   let siteBands;
 
@@ -50,7 +58,7 @@ const BandSelector = ({ site, bands, step, setStep, setBands }) => {
   };
 
   return (
-    <ScrollView style={tw`mb-32`}>
+    <ScrollView>
       <View style={tw`px-4 py-2`}>
         <Text
           style={tw`text-red-600 font-extrabold my-4 text-center capitalize text-lg`}
@@ -106,6 +114,9 @@ const BandSelector = ({ site, bands, step, setStep, setBands }) => {
           Finished? Click here to create your custom plan
         </Text>
       </TouchableOpacity>
+      <View style={tw`mx-2`}>
+        <Footer />
+      </View>
       {/* <View style="bg-black"></View> */}
     </ScrollView>
   );

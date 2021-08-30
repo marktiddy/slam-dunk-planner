@@ -20,6 +20,7 @@ const App = () => {
   const [site, setSite] = useState();
   const [bands, setBands] = useState();
   const [loading, setLoading] = useState(true);
+  const [chosenBands, setChosenBands] = useState([]);
 
   useEffect(() => {
     const loadBandsList = () => {
@@ -44,7 +45,7 @@ const App = () => {
 
       if (localStoredBands) {
         if (localSite) {
-          setSite(localSite);
+          setSite(JSON.parse(localSite));
           setLoading(false);
         }
         setBands(JSON.parse(localStoredBands));
@@ -67,43 +68,45 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView
-      style={tw`h-full flex p-4 text-center w-full border-2 border-black`}
-    >
-      <Image source={logo} style={tw`h-24 w-3/4 mx-auto`} />
-      {step == 0 && (
-        <View style={tw`p-4 bg-blue-600 m-4 rounded shadow-xl`}>
-          <Text style={tw`text-white font-extrabold text-center text-base`}>
-            Welcome to the unofficial Slam Dunk Day planner for 2021. This app
-            let's you create your perfect Slam Dunk day!
-          </Text>
-        </View>
-      )}
-      {step == 0 && (
-        <SiteSelector step={step} setStep={setStep} setSite={setSite} />
-      )}
-      {step == 1 && (
-        <BandSelector
-          step={step}
-          setStep={setStep}
-          site={site}
-          bands={bands}
-          setBands={setBands}
-        />
-      )}
-      {step === 2 && (
-        <DayPlan
-          bands={bands}
-          site={site}
-          setStep={setStep}
-          setBands={setBands}
-          setSite={setSite}
-          setLoading={setLoading}
-        />
-      )}
-      <StatusBar style="dark" />
-      <Footer />
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={tw`h-full flex p-4 text-center w-full`}>
+        <Image source={logo} style={tw`h-24 w-3/4 mx-auto`} />
+        {step == 0 && (
+          <View style={tw`p-4 bg-blue-600 m-4 rounded shadow-xl`}>
+            <Text style={tw`text-white font-extrabold text-center text-base`}>
+              Welcome to the unofficial Slam Dunk Day planner for 2021. This app
+              let's you create your perfect Slam Dunk day!
+            </Text>
+          </View>
+        )}
+        {step == 0 && (
+          <SiteSelector step={step} setStep={setStep} setSite={setSite} />
+        )}
+        {step == 1 && (
+          <BandSelector
+            step={step}
+            setStep={setStep}
+            site={site}
+            bands={bands}
+            setBands={setBands}
+            chosenBands={chosenBands}
+            setChosenBands={setChosenBands}
+          />
+        )}
+        {step === 2 && (
+          <DayPlan
+            bands={bands}
+            site={site}
+            setStep={setStep}
+            setBands={setBands}
+            setSite={setSite}
+            setLoading={setLoading}
+            setChosenBands={setChosenBands}
+          />
+        )}
+        <StatusBar style="dark" />
+      </SafeAreaView>
+    </>
   );
 };
 

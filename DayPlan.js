@@ -4,8 +4,17 @@ import { ScrollView, Text, TouchableOpacity, View, Alert } from "react-native";
 import { stagecols } from "./cols";
 import tw from "tailwind-react-native-classnames";
 import * as SecureStore from "expo-secure-store";
+import Footer from "./Footer";
 
-const DayPlan = ({ bands, setBands, setSite, site, setStep, setLoading }) => {
+const DayPlan = ({
+  bands,
+  setBands,
+  setSite,
+  site,
+  setStep,
+  setLoading,
+  setChosenBands,
+}) => {
   const minutesOfDate = (time) => {
     const splitTime = time.split(":");
     const minutes = parseInt(splitTime[0] * 60) + parseInt(splitTime[1]);
@@ -19,7 +28,7 @@ const DayPlan = ({ bands, setBands, setSite, site, setStep, setLoading }) => {
   useEffect(() => {
     const saveChoices = (async) => {
       SecureStore.setItemAsync("slamDunkBands", JSON.stringify(sortedBands));
-      SecureStore.setItemAsync("slamDunkSite", site);
+      SecureStore.setItemAsync("slamDunkSite", JSON.stringify(site));
     };
     saveChoices();
   }, [sortedBands, site]);
@@ -41,6 +50,7 @@ const DayPlan = ({ bands, setBands, setSite, site, setStep, setLoading }) => {
 
   const reset = async () => {
     setLoading(true);
+
     SecureStore.deleteItemAsync("slamDunkBands");
     SecureStore.deleteItemAsync("slamDunkSite");
 
@@ -52,15 +62,37 @@ const DayPlan = ({ bands, setBands, setSite, site, setStep, setLoading }) => {
       .then((res) => res.json())
       .then((res) => {
         setBands(res);
+        setChosenBands([]);
         setSite();
         setStep(0);
         setLoading(false);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log("oops"));
+  };
+
+  const changeSelection = async () => {
+    setLoading(true);
+
+    SecureStore.deleteItemAsync("slamDunkBands");
+    SecureStore.deleteItemAsync("slamDunkSite");
+
+    const headers = new Headers();
+    headers.append("pragma", "no-cache");
+    headers.append("cache-control", "no-cache");
+
+    fetch("https://marktiddy.co.uk/hosting/bandsList.json", { headers })
+      .then((res) => res.json())
+      .then((res) => {
+        setBands(res);
+        //setSite();
+        setStep(1);
+        setLoading(false);
+      })
+      .catch((e) => console.log("oops"));
   };
 
   return (
-    <ScrollView style={tw`px-4 text-center mb-40`}>
+    <ScrollView style={tw`px-4 text-center`}>
       <Text
         style={tw`text-red-600 font-extrabold my-2 text-center capitalize text-lg`}
       >
@@ -71,15 +103,26 @@ const DayPlan = ({ bands, setBands, setSite, site, setStep, setLoading }) => {
         to view it.
       </Text>
 
-      <TouchableOpacity
-        onPress={() => createAlert()}
-        style={tw`bg-yellow-400 rounded m-auto py-2 px-2 text-center`}
-      >
-        <Text style={tw`text-black text-center text-sm font-extrabold `}>
-          Want to pick again? Click here to start over
-        </Text>
-      </TouchableOpacity>
-      <View style={tw`p-1 mt-4`}>
+      <View style={tw`flex flex-row`}>
+        <TouchableOpacity
+          onPress={() => changeSelection()}
+          style={tw`bg-blue-600 rounded m-auto py-2 px-2 text-center mb-4`}
+        >
+          <Text style={tw`text-white text-center text-sm font-extrabold `}>
+            Change Selection
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => createAlert()}
+          style={tw`bg-red-600 rounded m-auto py-2 px-2 text-center mb-4`}
+        >
+          <Text style={tw`text-white text-center text-sm font-extrabold `}>
+            Start Over
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <Footer />
+      <View style={tw`p-1 mt-2`}>
         {sortedBands.map((b, i) => {
           return (
             <View
@@ -132,6 +175,7 @@ const DayPlan = ({ bands, setBands, setSite, site, setStep, setLoading }) => {
           );
         })}
       </View>
+      <Footer />
     </ScrollView>
   );
 };

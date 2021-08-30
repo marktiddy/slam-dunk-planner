@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView, Text, View, TouchableOpacity } from "react-native";
 import tw from "tailwind-react-native-classnames";
+import Footer from "./Footer";
 
 const SiteSelector = ({ step, setStep, setSite }) => {
   const makeSelection = (site) => {
@@ -40,6 +41,9 @@ const SiteSelector = ({ step, setStep, setSite }) => {
             Sunday 5th September 2021
           </Text>
         </TouchableOpacity>
+        <View style={tw`mx-3`}>
+          <Footer />
+        </View>
       </View>
     </ScrollView>
   );
