@@ -13,17 +13,17 @@ import logo from "./assets/logo.png";
 import SiteSelector from "./SiteSelector";
 import BandSelector from "./BandSelector";
 import DayPlan from "./DayPlan";
-import Footer from "./Footer";
 
 const App = () => {
   const [step, setStep] = useState(0);
   const [site, setSite] = useState();
   const [bands, setBands] = useState();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [chosenBands, setChosenBands] = useState([]);
 
   useEffect(() => {
     const loadBandsList = () => {
+      setLoading(true);
       const headers = new Headers();
       headers.append("pragma", "no-cache");
       headers.append("cache-control", "no-cache");
@@ -33,6 +33,7 @@ const App = () => {
         .then((res) => {
           setBands(res);
           setLoading(false);
+          console.log("arrived here");
         })
         .catch((e) => console.log(e));
 
@@ -40,11 +41,12 @@ const App = () => {
     };
 
     const loadLocalBands = async () => {
+      setLoading(true);
       const localStoredBands = await SecureStore.getItemAsync("slamDunkBands");
       const localSite = await SecureStore.getItemAsync("slamDunkSite");
 
       if (localStoredBands) {
-        if (localSite) {
+        if (JSON.parse(localSite)) {
           setSite(JSON.parse(localSite));
           setLoading(false);
         }

@@ -151,14 +151,21 @@ const DayPlan = ({
                 } font-extrabold uppercase text-sm mb-1 px-2 pb-1 text-center`}
               >
                 Starts: {b.start} (
-                {moment("08/04/2021 " + b.start).format("h:mm a")})
+                {moment("08-04-2021 " + b.start, "MM-DD-YYYY HH:mm").format(
+                  "h:mm a"
+                )}
+                )
               </Text>
               <Text
                 style={tw`${
                   stagecols.text[b.stage]
                 } font-extrabold uppercase text-sm mb-1 px-2 pb-1 text-center`}
               >
-                Ends: {b.end} ({moment("08/04/2021 " + b.end).format("h:mm a")})
+                Ends: {b.end} (
+                {moment("08-04-2021 " + b.end, "MM-DD-YYYY HH:mm").format(
+                  "h:mm a"
+                )}
+                )
               </Text>
               {i < bands.length - 1 &&
                 minutesOfDate(b.end) > minutesOfDate(bands[i + 1].start) && (

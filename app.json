@@ -2,7 +2,7 @@
   "expo": {
     "name": "Slam Dunk Day Planner",
     "slug": "slam-dunk-planner",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "platforms": ["ios", "android"],
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.mtmedia.slamdunkplanner",
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.3"
     },
     "android": {
       "package": "com.mtmedia.slamdunkplanner",
